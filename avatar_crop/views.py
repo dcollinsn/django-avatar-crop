@@ -25,7 +25,6 @@ from avatar_crop.forms import AvatarForm, AvatarCropForm
 from avatar.models import Avatar
 
 from avatar_crop import AVATAR_CROP_MAX_SIZE
-from avatar.settings import AVATAR_STORAGE_DIR, AVATAR_THUMB_QUALITY, AVATAR_THUMB_FORMAT
 
 @login_required
 def avatar_crop(request, id=None):
@@ -70,7 +69,7 @@ def avatar_crop(request, id=None):
                 image = image.convert('RGB')
 
             thumb = StringIO()
-            image.save(thumb, AVATAR_THUMB_FORMAT, quality=AVATAR_THUMB_QUALITY)
+            image.save(thumb, settings.AVATAR_THUMB_FORMAT, quality=settings.AVATAR_THUMB_QUALITY)
             thumb_file = ContentFile(thumb.getvalue())
 
             base_name, ext = os.path.splitext(avatar.avatar.name)
