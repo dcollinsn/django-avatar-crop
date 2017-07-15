@@ -2,7 +2,7 @@ import os
 
 from django.conf import settings
 from django.core.files.base import ContentFile
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
