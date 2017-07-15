@@ -80,9 +80,13 @@ def avatar_crop(request, id=None):
             messages.add_message(request, messages.INFO, _("Your new avatar has been saved successfully."))
             return HttpResponseRedirect(reverse("avatar_change"))
 
-    return render_to_response("avatar_crop/crop.html", {
-        'AVATAR_CROP_MAX_SIZE': AVATAR_CROP_MAX_SIZE,
-        'dim': result,
-        'avatar': avatar,
-        'form': form
-    }, context_instance=RequestContext(request))
+    return render(
+        request,
+        "avatar_crop/crop.html",
+        {
+            'AVATAR_CROP_MAX_SIZE': AVATAR_CROP_MAX_SIZE,
+            'dim': result,
+            'avatar': avatar,
+            'form': form
+        },
+    )
