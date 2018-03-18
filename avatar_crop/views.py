@@ -11,7 +11,7 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from io import StringIO
+from io import BytesIO
 
 try:
     from PIL import Image
@@ -43,7 +43,7 @@ def avatar_crop(request, id=None):
     else:
         try:
             orig = avatar.avatar.storage.open(avatar.avatar.name, 'rb').read()
-            image = Image.open(StringIO(orig))
+            image = Image.open(BytesIO(orig))
         except IOError:
             return
         form = AvatarCropForm(image, request.POST)
@@ -65,7 +65,7 @@ def avatar_crop(request, id=None):
             if image.mode != 'RGB':
                 image = image.convert('RGB')
 
-            thumb = StringIO()
+            thumb = BytesIO()
             image.save(thumb, settings.AVATAR_THUMB_FORMAT, quality=settings.AVATAR_THUMB_QUALITY)
             thumb_file = ContentFile(thumb.getvalue())
 
